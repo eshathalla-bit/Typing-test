@@ -9,7 +9,7 @@ function App() {
   const [Speed,setSpeed]=useState(0)
   const [FinalSpeed,setFinalSpeed]=useState(null)
   const [Error,setError]=useState(0)
-   const accuracy = FinalSpeed > 0? ((FinalSpeed - Error) / FinalSpeed) * 100: 0;
+   const accuracy = FinalSpeed > 0? (FinalSpeed-Error>0?((FinalSpeed - Error) / FinalSpeed) * 100:0): 0;
    const grossWPM = FinalSpeed ? (FinalSpeed / 5) * 2 : 0;
    const netWPM = grossWPM * (accuracy / 100);
   
@@ -17,7 +17,6 @@ function App() {
   const [List,setList]=useState([])
   
   const [SelectedText,setSelectedText]=useState([])
-
 
 
   const SpeedRef=useRef(0)
@@ -42,13 +41,7 @@ function App() {
            
         }, 1000);
   }
-  const typingSpeed =(e)=>{
-    if(e.key!==" " && e.key.length ===1)
-     setSpeed(prev=>prev+1)
-   return Speed
-}
-
-
+  
 
   const handleClick=()=>{
     timer()
@@ -128,11 +121,12 @@ function App() {
        setList(arr);
 
        checkCorrect(arr);
+       setSpeed(value.replace(/\s/g, '').length);
       }}
        placeholder="write here"
        className="w-full p-4 text-lg rounded-lgp-5 border rounded "
       disabled={!TimerRunning}
-       onKeyDown={typingSpeed}></input>
+      ></input>
        <div className="space-y-2 mt-4">
        {TimerRunning && (
        <div className="mt-4 space-y-2">
