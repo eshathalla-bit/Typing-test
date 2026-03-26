@@ -60,7 +60,7 @@ function App() {
     setError(0)
     setText(textshown())
     setTimerRunning(true)
-    inputRef.current.focus()
+    setTimeout(() => inputRef.current.focus(), 0)
 
   }
   const textshown=useCallback(()=>{
