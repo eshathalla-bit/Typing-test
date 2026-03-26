@@ -121,7 +121,7 @@ function App() {
        setList(arr);
 
        checkCorrect(arr);
-       setSpeed(value.replace(/\s/g, '').length);
+       setSpeed(value.length);
       }}
        placeholder="write here"
        className="w-full p-4 text-lg rounded-lgp-5 border rounded "
