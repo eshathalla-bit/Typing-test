@@ -20,15 +20,25 @@ function App() {
 
 
   const SpeedRef=useRef(0)
+  const intervalRef=useRef(null)
+  const inputRef=useRef(null)
   useEffect(()=>{
     SpeedRef.current=Speed
   },[Speed])
+  useEffect(()=>{
+    return()=>{
+      if (intervalRef.current !== null) {
+           clearInterval(intervalRef.current)
+      }
+    }
+  },[])
   const timer =()=>{
-         const interval=setInterval(() => {
+         intervalRef.current=setInterval(() => {
          
            setTime((prev)=>{
             if(prev===0){
-              clearInterval(interval)
+              clearInterval(intervalRef.current)
+              intervalRef.current=null
               setTimerRunning(false)
               setTime(30)
               setText(textshown())
@@ -50,6 +60,8 @@ function App() {
     setError(0)
     setText(textshown())
     setTimerRunning(true)
+    inputRef.current.focus()
+
   }
   const textshown=useCallback(()=>{
     
@@ -110,6 +122,7 @@ function App() {
      <p >{Text}</p>
       <input type='text'
       value={Input}
+      ref={inputRef}
       
       onChange={(e)=>{
         const value = e.target.value;
